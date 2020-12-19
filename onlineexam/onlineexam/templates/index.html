@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<head>
+<title>Online quiz</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#but1").click(function()
+        {
+          $(".rb").show();
+          $(".rb").attr("disabled", true);  
+        });
+
+});
+     var score=0;
+   function returnScore(selectedOption, answer){
+       
+      
+           
+           if(selectedOption==answer){
+               alert("your answer is "+selectedOption);
+               score+=1;
+           }
+   } 
+   function calculateScore(){
+    alert(score);
+   }
+   function addZero(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+        function startQuiz(){
+            var d=new Date();
+            var x = document.getElementById("demo");
+            var h = addZero(d.getHours());
+            var m = addZero(d.getMinutes());
+            var s = addZero(d.getSeconds());
+            x.innerHTML = h + ":" + m + ":" + s;
+            console.log(x);
+            //return h,m,s;
+
+        }
+        
+        function endQuiz(){
+            var d=new Date();
+            var y=document.getElementById("demo1");
+            var h1 = addZero(d.getHours());
+            var m1 = addZero(d.getMinutes());
+            var s1 = addZero(d.getSeconds());
+            y.innerHTML=h1+ ":" + m1 + ":" + s1;
+            console.log(y);
+            //return h1,m1,s1;
+
+        }
+        function timeTaken(){
+            var s1=document.getElementById("demo").innerText;
+            var e1=document.getElementById("demo1").innerText;
+            var s,e;
+            s=s1.split(":");
+            e=e1.split(":");
+            var sh=parseInt(s[0]);
+            var sm=parseInt(s[1]);
+            var ss=parseInt(s[2]);
+            var eh=parseInt(e[0]);
+            var em=parseInt(e[1]);
+            var es=parseInt(e[2]);
+            var diffh=eh-sh;
+            var diffm=em-sm;
+            var diffs=es-ss;
+            var res=diffh+":"+diffm+":"+diffs;
+            document.getElementById("timetaken").innerHTML=res;
+            console.log(s1);
+            console.log(e1);
+            }
+</script>
+</head>
+<body>
+    <center>
+        <h1>Your test begins</h1>
+    </center>
+    <br>
+    <span id="demo"></span>
+    <button onclick="startQuiz();">Start Timer</button>
+<div  style="padding-left:30px;">
+    {% for result in Exam %}
+    <table>
+        <tr>
+            <td>{{result.id}} ) {{ result.Questions}}?</td>
+        </tr>
+        
+        <tr>
+            <td><input type="radio" id="id1" class="rb" name="{{result.id}}" value="{{result.option1}}" onclick="returnScore('{{result.option1}}','{{result.correct}}')">{{result.option1}}</td>
+        </tr>
+        
+        <tr>
+            <td><input type="radio" id='id2' class="rb" name="{{result.id}}" value="{{result.option2}}" onclick="returnScore('{{result.option2}}','{{result.correct}}')">{{result.option2}}</td>
+        </tr>
+        
+        <tr>
+            <td><input type="radio" id="id3" class="rb" name="{{result.id}}" value="{{result.option3}}" onclick="returnScore('{{result.option3}}','{{result.correct}}')">{{result.option3}}</td>
+        </tr>
+        
+        <tr>
+            <td><input type="radio" id="id4" class="rb" name="{{result.id}}" value="{{result.option4 }}" onclick="returnScore('{{result.option4}}','{{result.correct}}')">{{result.option4}}</td>
+        </tr>
+        
+        <tr>
+            <td><label id="correct" class="rb" style="display: none; color:green"><b>{{result.correct}}</b></label></td>
+        </tr>
+        <hr/>
+    </table>
+    {% endfor %}
+    <hr/>
+    <input type="Submit" value="Click for results" id="but1" onclick="calculateScore();" >
+    <span id="demo1"></span>
+    <button onclick="endQuiz();">End test!!</button>
+    <br/>
+    Time Taken:<button onclick="timeTaken();">Click Time</button>
+    <p id="timetaken"></p><br>
+    <b id="UserAnswers"></b>
+    
+    
+    
+    
+</div>
+</body>
+</html>
