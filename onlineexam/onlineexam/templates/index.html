@@ -23,7 +23,7 @@
            }
    } 
    function calculateScore(){
-    alert(score);
+    alert("Your score is "+score);
    }
    function addZero(i) {
   if (i < 10) {
@@ -70,8 +70,8 @@
             var diffh=eh-sh;
             var diffm=em-sm;
             var diffs=es-ss;
-            var res=diffh+":"+diffm+":"+diffs;
-            document.getElementById("timetaken").innerHTML=res;
+            var res=diffh+"hours:"+diffm+"minutes:"+diffs +"seconds";
+            document.getElementById("timetaken").innerHTML="You attempted this test in "+res;
             console.log(s1);
             console.log(e1);
             }
@@ -82,6 +82,8 @@
         <h1>Your test begins</h1>
     </center>
     <br>
+    <h2>Please click "Start Timer" button to start the timer.</h2><br>
+    <h2>If the alert pops up, +1 will be done to your score. Each question carries 1 mark.</h2>
     <span id="demo"></span>
     <button onclick="startQuiz();">Start Timer</button>
 <div  style="padding-left:30px;">
@@ -113,6 +115,7 @@
         <hr/>
     </table>
     {% endfor %}
+    
     <hr/>
     <input type="Submit" value="Click for results" id="but1" onclick="calculateScore();" >
     <span id="demo1"></span>
